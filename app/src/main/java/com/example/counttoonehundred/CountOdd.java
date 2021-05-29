@@ -5,7 +5,7 @@ import android.widget.Toast;
 
 public class CountOdd implements Runnable {
 
-
+    // New WeakReference object.
     private WeakReference<Activity> activity;
     public CountOdd(MainActivity activity, String odd){this.activity = new WeakReference<Activity>(activity);}
 
