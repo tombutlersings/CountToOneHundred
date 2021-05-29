@@ -26,7 +26,7 @@ public class CountOdd implements Runnable {
                 public void run() {
                     refActivity.runOnUiThread(new Runnable() {
                         public void run() {
-                            Toast.makeText(activity, "Odds are done", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(refActivity, "Odds are done", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
