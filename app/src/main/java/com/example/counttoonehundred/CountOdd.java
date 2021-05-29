@@ -6,8 +6,8 @@ import android.widget.Toast;
 public class CountOdd implements Runnable {
 
 
-    Activity activity;
-    public CountOdd(MainActivity activity, String odd){this.activity = activity;}
+    private WeakReference<Activity> activity;
+    public CountOdd(MainActivity activity, String odd){this.activity = new WeakReference<Activity>(activity);}
 
     @Override
     public void run() {
@@ -19,7 +19,18 @@ public class CountOdd implements Runnable {
                 e.printStackTrace();
             }
         }
-        activity.runOnUiThread(() -> Toast.makeText(activity, "Odds are done", Toast.LENGTH_SHORT).show());
-
+        final Activity refActivity = activity.get();
+        if ( refActivity != null) {
+            refActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    refActivity.runOnUiThread(new Runnable() {
+                        public void run() {
+                            Toast.makeText(activity, "Odds are done", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            });
+        }
     }
 }
